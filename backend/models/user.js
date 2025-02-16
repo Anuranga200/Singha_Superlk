@@ -11,7 +11,7 @@ const userSchema = new Schema({
   { timestamps: true }
 );
 
-//hsahing the password
+//hashing the password
 userSchema.pre('save', async function (next) {
   if (this.isModified('password')) return next();
   const salt = await bycrypt.genSalt(10);

@@ -3,7 +3,7 @@ const generateToken = require('../utils/generateToken');
 
 //register new user
 const registerUser = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password } = req.body;//req.body is coming from the bodyparser middleware
   
         const userExists = await user.findOne({ email });
         if (userExists)return res.status(400).json({ message: 'User already exists' });
@@ -14,6 +14,7 @@ const registerUser = async (req, res) => {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
+                password: user.password,
                 role: user.role,
                 token: generateToken(user._id),
             });
@@ -42,7 +43,7 @@ const loginUser = async (req, res) => {
 
 //get user profile
 const getUserProfile = async (req, res) => {
-    const user = await user.findById(req.user._id);
+    const user = await user.findById(req.user._id);//req.user is coming from the protect middleware
     if (user) {
         res.json({
             _id: user._id,
