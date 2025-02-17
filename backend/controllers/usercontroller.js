@@ -1,20 +1,19 @@
-const user = require('../models/user');
+const User = require('../models/user');
 const generateToken = require('../utils/generateToken');
 
 //register new user
 const registerUser = async (req, res) => {
-    const { name, email, password } = req.body;//req.body is coming from the bodyparser middleware
+    const { name, email, password,role } = req.body;//req.body is coming from the bodyparser middleware
   
-        const userExists = await user.findOne({ email });
-        if (userExists)return res.status(400).json({ message: 'User already exists' });
+       const userExists = await User.findOne({ email });
+       if (userExists)return res.status(400).json({ message: 'User already exists' });
         
-        const user =await user.create({name,email,password,role});
+        const user =await User.create({name,email,password,role});
         if (user) {
-            res.status(201).json({
+            res.status(200).json({
                 _id: user._id,
                 name: user.name,
                 email: user.email,
-                password: user.password,
                 role: user.role,
                 token: generateToken(user._id),
             });
@@ -27,7 +26,7 @@ const registerUser = async (req, res) => {
 //login user
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
-    const user = await user.findOne({ email });
+    const user = await User.findOne({ email });
     if (user && (await user.comparePassword(password))) {
         res.json({
             _id: user._id,

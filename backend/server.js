@@ -1,5 +1,6 @@
+const express = require('express'); 
 const app=require('./app');
-const routers = require('./routes/userRoutes');
+const userRoutes = require('./routes/userRoutes');
 app.use(express.json());
 const connectDB = require('./config/db');
 const host ='localhost';
@@ -18,7 +19,8 @@ const server = app.listen(PORT,host,()=>{
     console.log(`Server is running on ${server.address().port}`);
 });
 
-//app.use("/api/users", routers);
+app.use("/api/users", userRoutes);// This will use the userRoutes for any routes that start with /api/users.
+
 app.get('/',(req,res)=>{
     res.send('API is running....');
 });
