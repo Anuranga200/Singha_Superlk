@@ -19,7 +19,7 @@ const getUsers = async (req, res) => {
     }
 };
 
-//delte user(admin only)
+//delete user(admin only)
 const deleteUser = async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {

@@ -32,11 +32,10 @@ const {products}= req.body.products;
         totalAmount,
     });
     res.status(201).json({message: 'Order placed successfully', order});
-    
+}
     //get orders for logged-in user
     const getUserOrders = async (req, res) => {
         const orders = await Order.find({ user: req.user._id }).populate("products.product","name price");
         res.jason(orders);
     };
     module.exports = {placeOrder,getUserOrders};
-}

@@ -1,11 +1,16 @@
 const express = require('express'); 
 const app=require('./app');
-const userRoutes = require('./routes/userRoutes');
-const userProducts = require('./routes/productRoutes')
-const adminRoutes = require('./routes/adminRoutes');
-const orderRoutes = require('./routes/orderRoutes');
 app.use(express.json());
 const connectDB = require('./config/db');
+
+const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes')
+const adminRoutes = require('./routes/adminRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+
+const limiter = require('./middleware/rateLimiter');
+app.use(limiter);
+
 const host ='localhost';
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
