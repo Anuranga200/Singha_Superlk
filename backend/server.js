@@ -1,6 +1,9 @@
 const express = require('express'); 
 const app=require('./app');
 const userRoutes = require('./routes/userRoutes');
+const userProducts = require('./routes/productRoutes')
+const adminRoutes = require('./routes/adminRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 app.use(express.json());
 const connectDB = require('./config/db');
 const host ='localhost';
@@ -20,6 +23,10 @@ const server = app.listen(PORT,host,()=>{
 });
 
 app.use("/api/users", userRoutes);// This will use the userRoutes for any routes that start with /api/users.
+app.use ("/api/products", productRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/orders", orderRoutes);
+
 
 app.get('/',(req,res)=>{
     res.send('API is running....');
