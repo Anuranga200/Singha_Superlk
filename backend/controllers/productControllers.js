@@ -16,7 +16,7 @@ const getProductById = async (req, res) => {
     }
 };
 
-//create a new product(ADMIN AONLY)
+//create a new product(ADMIN ONLY)
 const createProduct = async (req, res) => {
     const { name, description, price, category, image, stock, isPremiumDiscount, discountPrice } = req.body;
 
